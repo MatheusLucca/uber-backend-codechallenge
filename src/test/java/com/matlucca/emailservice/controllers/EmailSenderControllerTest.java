@@ -3,6 +3,7 @@ package com.matlucca.emailservice.controllers;
 import com.matlucca.emailservice.application.EmailSenderService;
 import com.matlucca.emailservice.core.EmailRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -31,6 +32,7 @@ class EmailSenderControllerTest {
     }
 
     @Test
+    @DisplayName("When send email then email sent sucessfully")
     void whenSendEmailThenEmailSentSucessfully() {
         doNothing().when(emailSenderService).sendEmail(anyString(), anyString(), anyString());
 

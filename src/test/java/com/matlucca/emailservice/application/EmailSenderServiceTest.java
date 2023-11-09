@@ -3,6 +3,7 @@ package com.matlucca.emailservice.application;
 import com.matlucca.emailservice.adapters.EmailSenderGateway;
 import com.matlucca.emailservice.core.exceptions.EmailServiceException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ class EmailSenderServiceTest {
     }
 
     @Test
+    @DisplayName("When send email then email sent sucessfully")
     void whenSendEmailThenEmailSentSucessfully() {
         doNothing().when(mainEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
 
@@ -45,6 +47,7 @@ class EmailSenderServiceTest {
     }
 
     @Test
+    @DisplayName("When send email then main fail and opt is used")
     void whenSendEmailThenMainFailAndOptIsUsed(){
         doThrow(new EmailServiceException("ERRO")).when(mainEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
         doNothing().when(optEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
@@ -59,6 +62,7 @@ class EmailSenderServiceTest {
     }
 
     @Test
+    @DisplayName("When send email then main and opt fail")
     void whenSendEmailThenReturnEmailServiceException(){
         doThrow(new EmailServiceException("ERRO")).when(mainEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
         doThrow(new EmailServiceException("ERRO")).when(optEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
