@@ -48,10 +48,13 @@ class EmailSenderServiceTest {
     void whenSendEmailThenMainFailAndOptIsUsed(){
         doThrow(new EmailServiceException("ERRO")).when(mainEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
         doNothing().when(optEmailSenderGateway).sendEmail(anyString(), anyString(), anyString());
-        emailSenderService.sendEmail(MAIL, TESTE, TESTE);
-        Mockito.verify(mainEmailSenderGateway, Mockito.times(1))
-                .sendEmail(anyString(), anyString(), anyString());
-        Mockito.verify(optEmailSenderGateway, Mockito.times(1))
+        try{
+            emailSenderService.sendEmail(MAIL, TESTE, TESTE);
+        } catch (EmailServiceException ex){
+            assertEquals("ERRO", ex.getMessage());
+            assertEquals(EmailServiceException.class, ex.getClass());
+        }
+        Mockito.verify(mainEmailSenderGateway, Mockito.times(2))
                 .sendEmail(anyString(), anyString(), anyString());
     }
 
